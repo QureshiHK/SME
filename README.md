@@ -1,31 +1,38 @@
-README
-
-System requirements & command line command list:
+<h1>README</h1>
 
 
-Linux packages to install to setup python environment:
+<h3>System requirements & command line command list:</h3>
+
+
+
+<b>Linux packages to install to setup python environment: </b>
+
 sudo apt-get install python3 python3-pip python-tk PyQt5 python3-pyqt5
 
-Python packages to install in order for software to work:
-pip3 install opencv-python-headless matplotlib numpy scipy scikit-image pillow scikit-learn pandas PySimpleGUI PySimpleGUIQt contextlib gc mayavi #install python packages
+<b>Python packages to install in order for software to work: </b>
+
+pip3 install opencv-python-headless matplotlib numpy scipy scikit-image pillow scikit-learn pandas PySimpleGUI PySimpleGUIQt contextlib gc mayavi
 
 
-Run program from command line:
+<b>Run program from command line:</b>
 
 python3 sme.py 
 
 
 
-Running the software
+<h3>Running the software</h3>
 
-
-2D SEGMENTATION
+<br>
+<br>
+<b>2D SEGMENTATION</b>
+<p>
 images need to be tiff series, with each time point in its own folder and each z slice as a separate tiff file. 
 
 ImageJ can save a 3D image as tiff series, but doesn't sort the time points into folders. I have script that should do this for you.
 
 Open the a couple of random tiffs in ImageJ and hover the mouse over nuclei and background to get a feel for the brightness levels of the image.
 
+<br>
 
 Input: Select the parent folder containing the sub folders for each time point.
 
@@ -44,15 +51,16 @@ Min 2D area: minumum area of feature (noise elimination feature. features below 
 Max 2D area: maximum area of feature in z slice (features above this side are not segmented, usually to eliminate noise)
 
 Processing cores: How many logical processors to use to perform the task. At most, set to the number of logical processors-1.
+</p>
 
-
-3D SEGMENTATION
-
+<b>3D SEGMENTATION</b>
+<p>
 Instructions in software 3D segmentation tab
-
-
-TRANSFORMTION
-
+</p>
+<br>
+<br>
+<b>TRANSFORMTION</b>
+<p>
 Input: Folder in which 3D segmentation outputs (.csv files per time point) are stored
 
 Output: Folder in which the resulting single .csv file with collated time point data is stored.
@@ -64,10 +72,11 @@ X conversion: Conversion factor of pixels to microns in x dimension
 Y conversion: Conversion factor of pixels to microns in y dimension
 
 Z conversion: Conversion factor of pixels to microns in z dimension
-
-
-TRACKING
-
+</p>
+<br>
+<br>
+<b>TRACKING</b>
+<p>
 Filling the Transformation input/output should autofill the relevant tracking input/output (unless you wish to track a separate dataset, in which case you will need to select that manually)
 
 Input: Select the file which resulted from implementing the transformation step. This is usually called 'appendcsv.csv', but if you have renamed it then it will still work when you select it.
@@ -79,3 +88,4 @@ Min scan radius: Minimum region within to search for nuclei in the next frame. T
 Decay factor: Approx by how much the diameter of cells is decreasing per generation.
 
 Mitosis buffer: How many frames after mitosis do you not expect another mitosis event. This is mainly to give the daughter nuclei from a mitotic event time to migrate away from each other without registering another mitosis. This will generally depend on frame rate. Timelapses with less time between frames will require a higher mitosis buffer value, and vice versa.
+</p>
