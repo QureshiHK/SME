@@ -85,6 +85,7 @@ parfor a = 3:N
     disp(['improc done'])
     disp('Creating 3D Virtual Stack...');
     %tic;
+    %--3D OUTPUT VISUALISATION BLOCK--
     %{
     fig=figure; hold on;
     sort(Layers); %multithreaded parallelisation disorders processed images so reorder before drawing them. Takes about the same time to do this.
@@ -116,7 +117,7 @@ parfor a = 3:N
 
     figure;
     %}
-    
+    %--END 3D OUTPUT VISUALISATION BLOCK--
     MCC = bwconncomp(M);
     stats3D = regionprops3(MCC,'all');
     %relevant_props3 = table(stats3D.Volume,stats3D.Centroid(:,1),stats3D.Centroid(:,2),stats3D.Centroid(:,3), stats3D.BoundingBox(:,1),stats3D.BoundingBox(:,2),stats3D.BoundingBox(:,3),stats3D.Solidity, stats3D.MaxIntensity, stats3D.MeanIntensity, stats3D.MinIntensity, stats3D.WeightedCentroid, stats3D.Extent, stats3D.EquivDiameter)
