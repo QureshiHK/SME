@@ -19,10 +19,11 @@ pip3 install opencv-python-headless matplotlib numpy scipy scikit-image pillow s
 python3 sme.py 
 
 
-
+<br>
+<br>
 <h3>Running the software</h3>
 
-<br>
+
 <br>
 <b>2D SEGMENTATION</b>
 <p>
