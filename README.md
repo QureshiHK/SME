@@ -20,7 +20,6 @@ python3 sme.py
 
 
 <br>
-<br>
 <h3>Running the software</h3>
 
 
@@ -54,12 +53,12 @@ Max 2D area: maximum area of feature in z slice (features above this side are no
 Processing cores: How many logical processors to use to perform the task. At most, set to the number of logical processors-1.
 </p>
 <br>
-<br>
 <b>3D SEGMENTATION</b>
 <p>
 Instructions in software 3D segmentation tab
+Needs to be run in MATLAB. simply change value of seg_input by changing what it equals to. Enclose directory path in single quotations.
+
 </p>
-<br>
 <br>
 <b>TRANSFORMTION</b>
 <p>
@@ -69,11 +68,11 @@ Output: Folder in which the resulting single .csv file with collated time point 
 
 Min volume filter: Remove features below a certain volume. (can be effective in removing improperly segmented nuclei or small debris)
 
-X conversion: Conversion factor of pixels to microns in x dimension
+X conversion: Conversion factor of pixels to microns in x dimension - how many microns are covered by the pixel in this dimension. Available fro examning raw data metadata
 
-Y conversion: Conversion factor of pixels to microns in y dimension
+Y conversion: Conversion factor of pixels to microns in y dimension - how many microns are covered by the pixel in this dimension. Available fro examning raw data metadata
 
-Z conversion: Conversion factor of pixels to microns in z dimension
+Z conversion: Conversion factor of pixels to microns in z dimension - how many microns are covered by the pixel in this dimension. Available fro examning raw data metadata
 </p>
 <br>
 <br>
