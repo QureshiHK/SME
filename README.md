@@ -52,7 +52,8 @@ Max 2D area: maximum area of feature in z slice (features above this side are no
 
 Processing cores: How many logical processors to use to perform the task. At most, set to the number of logical processors-1.
 </p>
-
+<br>
+<br>
 <b>3D SEGMENTATION</b>
 <p>
 Instructions in software 3D segmentation tab
