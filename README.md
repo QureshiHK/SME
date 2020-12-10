@@ -58,6 +58,8 @@ Processing cores: How many logical processors to use to perform the task. At mos
 Instructions in software 3D segmentation tab
 Needs to be run in MATLAB. simply change value of seg_input by changing what it equals to. Enclose directory path in single quotations.
 
+![example of seg_input](images/x3D_SEG_input.svg)
+
 </p>
 <br>
 <b>TRANSFORMTION</b>
