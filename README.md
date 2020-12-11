@@ -25,7 +25,17 @@ An installation of MATLAB (any recent version, version 2019 onwards as these are
 
 <br>
 <h3>Running the software</h3>
+<br>
+<p>
+The order of the steps for processing an image are 2D segmentation, 3D segmentation, Transformation, Tracking.
+2D segmentation goes through each slice of data and detects features.
+  
+3D segmentation stitches the 2D segments together into 3D objects and extracts geometrical features
 
+These features are transformed into a usable form for Tracking to work on.
+
+
+</p>
 
 <br>
 <b>2D SEGMENTATION</b>
