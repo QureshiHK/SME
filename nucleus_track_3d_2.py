@@ -321,6 +321,9 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 					tracked[3] = tracked_remain[0]+1
 					print("tracked time + 1", tracked)
 					b.append(tracked)
+				elif mitosis_trigger==1:
+					print("mitosis event registered, end this track")
+					break
 				if current_time_coords[0][3] + 1 == T_len:
 					print("reached end of time lapse")
 					break
