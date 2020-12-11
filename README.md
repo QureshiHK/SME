@@ -55,10 +55,16 @@ Processing cores: How many logical processors to use to perform the task. At mos
 <br>
 <b>3D SEGMENTATION</b>
 <p>
-Instructions in software 3D segmentation tab
-Needs to be run in MATLAB. simply change value of seg_input by changing what it equals to. Enclose directory path in single quotations.
+Run x3D_SEG.m in MATLAB. Simply change value of seg_input by changing what it equals to. Enclose directory path in single quotations.
 
 ![example of seg_input](images/x3D_SEG_input.svg)
+
+Once this change has been made, run the script. This will output a .csv file per frame, carrying the geometrical data which will be used in the subsequent steps. These will be output into the directory specified by seg_input.
+
+To view full 3D output per frame as it is produced, uncomment between "%--3D OUTPUT VISUALISATION BLOCK--" and "%--END 3D OUTPUT VISUALISATION BLOCK--"" by deleting the %{ and %}. WARNING: this visualtion is very RAM heavy, and will take longer to process. depending on your RAM capacity maybe only try this on a few frames at a time, by running the script in a parent folder with a sample of the frames you wish to inspect. This is purely a visual step and does not impact the numerical outputs in any way. The parantheses to remove are highlighted in the following image, with a box and arrow.
+
+![what to remove to enable 3D segmentation visualisation](images/x3D_SEG_input_3Dvis.svg)
+
 
 </p>
 <br>
