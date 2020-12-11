@@ -4,7 +4,6 @@
 <h3>System requirements & command line command list:</h3>
 
 
-
 <b>Linux packages to install to setup python environment: </b>
 
 sudo apt-get install python3 python3-pip python-tk PyQt5 python3-pyqt5
@@ -17,6 +16,11 @@ pip3 install opencv-python-headless matplotlib numpy scipy scikit-image pillow s
 <b>Run program from command line:</b>
 
 python3 sme.py 
+
+
+<b>3D segmentation: </b>
+
+An installation of MATLAB (any recent version, version 2019 onwards as these are the ones I have tested)
 
 
 <br>
