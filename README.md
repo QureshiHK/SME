@@ -112,12 +112,12 @@ Decay factor: Approx by how much the diameter of cells is decreasing per generat
 
 Mitosis buffer: How many frames after mitosis do you not expect another mitosis event. This is mainly to give the daughter nuclei from a mitotic event time to migrate away from each other without registering another mitosis. This will generally depend on frame rate. Timelapses with less time between frames will require a higher mitosis buffer value, and vice versa.
 </p>
+<br>
 
-
-<h3>bugs and to do:</h>
-
+<h3>bugs and to do:</h3>
+<p>
 console doesn't update when functions are executed, seemingly due to how the multithreading is implemented.
 
 exiting the GUI while a function is executing doesn't kill that process. Need to end process via task/process manager. Need to build in method for killing all child processes on exit.
-
+</p>
 
