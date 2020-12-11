@@ -281,9 +281,10 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 				list_limit = 0 #only parse closest 3 neighbours
 				while list_limit<2: #only parse closest 3 neighbours
 					for neighbour in IDnearpts: #only parse closest 3 neighbours
+						mitosis_trigger = 0 # 2020-12-11 set up a trigger to inform the if statement which continues tracking (the false positive block). If mitosis is confirmed, then this value changes to 1, which bypases the false statement block.
 						list_limit+=1
 						IDnearptsN = ID_pts_within_dist(SLICE(neighbour), current_time_coords[:,:3], scan_radius/2)
-						if len(IDnearptsN) == 1:
+						if len(IDnearptsN) == 1: #mitosis confirmation
 							IDnearptsN = [neighbour, IDnearptsN[0]]
 							tracked_prepend = tracked
 							tracked_prepend[5] = tracked_prepend[5]+1
@@ -304,21 +305,22 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 								print("final R = ", R)
 								TP_coord_meta[0].append(R)
 								daughterID += 1
+								mitosis_trigger=1
 								#print("check TP_coord_meta[0]", TP_coord_meta[0])
 							#### append family ID of previous coordinate to these new tracks.
 							#### add in sibling ID as a part of lineage ID
 							print("end of this track")
 							break
 
-
-				print("continue with track, trigger was noise.")
-				tracked  = nearest_K_pts_v2(SLICE(tracked),numpy.array(IDnearpts),1)
-				print("current_time_coords[0][3] =", current_time_coords[0][3])
-				print("tracked = ", tracked)
-				tracked = STICK(tracked, tracked_remain)
-				tracked[3] = tracked_remain[0]+1
-				print("tracked time + 1", tracked)
-				b.append(tracked)
+				if mitosis_trigger!=1: #false positive block
+					print("continue with track, trigger was noise.")
+					tracked  = nearest_K_pts_v2(SLICE(tracked),numpy.array(IDnearpts),1)
+					print("current_time_coords[0][3] =", current_time_coords[0][3])
+					print("tracked = ", tracked)
+					tracked = STICK(tracked, tracked_remain)
+					tracked[3] = tracked_remain[0]+1
+					print("tracked time + 1", tracked)
+					b.append(tracked)
 				if current_time_coords[0][3] + 1 == T_len:
 					print("reached end of time lapse")
 					break
