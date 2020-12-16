@@ -210,7 +210,7 @@ def mod_run_chk(inP, outP, var_list, run_msg, all_systems):
 			#mod_run_chk(input,output,[max_nuc_diam, min_bright, prom, peak_dist, min2Darea, max2Darea],all_systems)
 
 while True:
-	event, values = window.read()
+	event, values = window.read(20)
 	#event == "Exit"
 	if event == pg.WIN_CLOSED:
 
@@ -614,7 +614,7 @@ while True:
 		if all_systems=="GO":
 			print("tracking initiated")
 			try:
-				window.read(20)
+				#window.read(20)
 				window.refresh()
 				print("meep")
 
@@ -622,9 +622,14 @@ while True:
 				#func_thread_trk = threading.Thread(target=track_nuc,args=(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mit_buff),daemon=True)
 				
 				#func_thread_trk = threading_norm.start_new_thread(track_nuc,(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mit_buff))
-				
+				'''
 				pool = mpg.Pool(1)
 				pool.apply(track_nuc,(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mit_buff))
+				'''
+				with closing(mpg.Pool(1)) as pl: #close processes and recover memory once each process is done
+					window.read(20)
+					pl.apply(track_nuc,(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mit_buff))
+					window.refresh()
 				
 
 				
@@ -632,11 +637,8 @@ while True:
 				print("meep2")
 				window.read(20)
 				window.Refresh()
-				#func_thread_trk.start()
-				print("meep3")
-				window.Read(20)
-				window.Refresh()
-				print("meep4")
+
+				#pool.join()
 				#^^^ pysimpleguiQt needs initiate parallel threads to run new scripts, as it must remain the primary thread.
 				#func_thread_trk.join()
 				print("post trk")

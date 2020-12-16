@@ -6,6 +6,7 @@ import matplotlib
 import matplotlib.pyplot as plt ##!! dependency: ensure tkinter is installed, for matplotlib gui (apt-get install python3-tk)
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
+#from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TK
 import matplotlib.pylab as pylab
 import numpy
 from numpy import ndarray as npd
@@ -16,6 +17,7 @@ from scipy.spatial.distance import cdist
 from sklearn import neighbors as skn
 import sys
 import os
+
 
 def value_check(value):
 	try:
@@ -424,4 +426,5 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 
 	end = time.time()
 	print("execution time = ", end - start,"s")
-	plt.show(block=False) #2020-11-18 added block=false to synergise with GUI multi window/multi threading functionality. We do not want the matplotlib window to stall the GUI.
+	#plt.show(block=False) #2020-11-18 added block=false to synergise with GUI multi window/multi threading functionality. We do not want the matplotlib window to stall the GUI.
+	plt.show()
