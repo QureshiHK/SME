@@ -19,7 +19,7 @@ import sys
 import os
 
 
-def value_check(value):
+def value_check_trkparam(value):
 	try:
 		value = float(value)
 		if value%1==0:
@@ -38,9 +38,9 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 	#track_input
 
 	data_len = int(frame_no) #length of dataset in frames/timepoints
-	scan_rad_lim = value_check(min_scanR) #the lowest scan radius to decay to.
-	scan_rad_start = value_check(scan_rad) #radius to scan within, to begin decay from
-	scan_rad_decay_factor = value_check(decay_rate) #multiplied by the cell generation and subtracted from scan_rad_start
+	scan_rad_lim = value_check_trkparam(min_scanR) #the lowest scan radius to decay to.
+	scan_rad_start = value_check_trkparam(scan_rad) #radius to scan within, to begin decay from
+	scan_rad_decay_factor = value_check_trkparam(decay_rate) #multiplied by the cell generation and subtracted from scan_rad_start
 	mitosis_buffer = int(mit_buff)
 	####END USER INPUTS
 
