@@ -151,12 +151,13 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 	def SLICE(tracked):
 		track_slice = tracked[:3]
 		print("trackslice = ",track_slice)
-		'''
+		
 		arroo = [0]
 		arroo[0] = track_slice
+		print("arroo = ", arroo)
 		return arroo
-		'''
-		return track_slice
+		
+		#return track_slice
 		
 	def STICK(arroo, tracked_remain):
 		#print("arroo[0] = ", arroo[0])
@@ -183,6 +184,8 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 		#print("f =", f)
 		return f
 
+
+	
 	#### THE MITOSIS ENGINE:  TRACKING USING NEAREST NEIGHBOUR PROCESS ####
 	track_list = []
 	#### append generation 0 to every coordinate prior to this upcoming loop, and then +1 to generation value whenever coordinate falls into a mitotic lineage.
@@ -251,7 +254,7 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 			current_time_coords = numpy.array(current_time_coords)
 			#print("current_time_coords[:,:3] = ", current_time_coords[:,:3])
 
-			numnearpts = num_pts_within_dist(tracked_3D_coord, current_time_coords[:,:3], scan_radius)
+			#numnearpts = num_pts_within_dist(tracked_3D_coord, current_time_coords[:,:3], scan_radius)
 			IDnearpts = ID_pts_within_dist(tracked_3D_coord, current_time_coords[:,:3], scan_radius)
 			print("IDnearpts = ", IDnearpts)
 			print("LEN IDnearpts = ", len(IDnearpts))
@@ -282,44 +285,57 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 				####
 				####ORGANISE NEIGHBOURS IN LIST BY PROXIMITY.#### THIS IS DONE AT THE FUNCTION LEVEL IN ID_pts_within_dist using return_dist AND sort_results arguments.
 				####
-				list_limit = 0 #only parse closest 3 neighbours
-				while list_limit<2: #only parse closest 3 neighbours
-					print("DETECTION::: IDnearpts = ",IDnearpts)
-					print("IDnearpts[0] = {} IDnearpts[1] = {}".format(IDnearpts[0],IDnearpts[1]))
-					for neighbour in IDnearpts: #only parse closest 3 neighbours
-						mitosis_trigger = 0 # 2020-12-11 set up a trigger to inform the if statement which continues tracking (the false positive block). If mitosis is confirmed, then this value changes to 1, which bypases the false statement block.
-						list_limit+=1
-						print("neighbour is ",neighbour)
-						IDnearptsN = ID_pts_within_dist(SLICE(neighbour), current_time_coords[:,:3], scan_radius/2)
-						print("length of IDnearptsN = ", len(IDnearptsN))
-						if len(IDnearptsN) == 1: #mitosis confirmation
-							IDnearptsN = [neighbour, IDnearptsN[0]]
-							tracked_prepend = tracked
-							tracked_prepend[5] = tracked_prepend[5]+1
-							daughterID = 1
-							print("IDnearptsN = ", IDnearptsN)
-							for R in IDnearptsN:
-								print("checking tracked value...", tracked)
-								print("R = ", R)
-								#R = R.tolist()
-								print("tolist R = ", R)
-								R = STICK(R, tracked_remain)
-								print("R STICK = ", R)
-								R[3] = R[3] + 1
+				
+				print("DETECTION::: IDnearpts = ",IDnearpts)
+				print("IDnearpts[0] = {} IDnearpts[1] = {}".format(IDnearpts[0],IDnearpts[1]))
+				for neighbour in IDnearpts: #only parse closest 3 neighbours
+					mitosis_trigger = 0 # 2020-12-11 set up a trigger to inform the if statement which continues tracking (the false positive block). If mitosis is confirmed, then this value changes to 1, which bypases the false statement block.
 
-								#R[4] = int(str(R[4]) + str('000') + str(daughterID))
-								R[4] = str(R[4]) + str('x') + str(daughterID)
+					print("neighbour is ",neighbour)
+					neighbour = SLICE(neighbour)
+					IDnearptsN = ID_pts_within_dist(neighbour, current_time_coords[:,:3], scan_radius)
 
-								R[5] = R[5] + 1 #### +1 to gen ID
-								print("final R = ", R)
-								TP_coord_meta[0].append(R)
-								daughterID += 1
-								mitosis_trigger=1
-								#print("check TP_coord_meta[0]", TP_coord_meta[0])
-							#### append family ID of previous coordinate to these new tracks.
-							#### add in sibling ID as a part of lineage ID
-							print("end of this track")
-							list_limit = 2 #close while loop. break wasn't working
+					print("length of IDnearptsN = ", len(IDnearptsN))
+					print("IDnearptsN---01 = ", IDnearptsN)
+					
+					'''
+					truth_compare = neighbour == IDnearptsN[0]
+					if truth_compare.all():
+						print("IDnearptsN and neighbour the same xxT")
+					else:
+						print("IDnearptsN and neighbour NOT the same xxLT")
+					'''
+						
+					if len(IDnearptsN) == 2: #mitosis confirmation. value is set equivalent to 2 as id_near_pts in same time frame will detect own coordinate as position 0 in array.
+						IDnearptsN = [neighbour, IDnearptsN[1]]
+						tracked_prepend = tracked
+						tracked_prepend[5] = tracked_prepend[5]+1
+						daughterID = 1
+						print("IDnearptsN---02 = ", IDnearptsN)
+						for R in IDnearptsN:
+							print("checking tracked value...", tracked)
+							print("R = ", R)
+							#R = R.tolist()
+							print("tolist R = ", R)
+							R = STICK(R, tracked_remain)
+							print("R STICK = ", R)
+							R[3] = R[3] + 1
+
+							#R[4] = int(str(R[4]) + str('000') + str(daughterID))
+							R[4] = str(R[4]) + str('x') + str(daughterID)
+
+							R[5] = R[5] + 1 #### +1 to gen ID
+							print("final R = ", R)
+							TP_coord_meta[0].append(R)
+							daughterID += 1
+							mitosis_trigger=1
+							#print("check TP_coord_meta[0]", TP_coord_meta[0])
+						#### append family ID of previous coordinate to these new tracks.
+						#### add in sibling ID as a part of lineage ID
+						print("end of this track")
+						break
+
+
 
 				if mitosis_trigger!=1: #false positive block
 					print("continue with track, trigger was noise.")
@@ -342,11 +358,15 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 				pass
 
 			else:
+				b = []
 				print("no track")
 				break
 
 
-		track_list.append(b)
+		if len(b)==0: #incomplete tracks are not stored. Could maybe make it an option to toggle this on/off? 2021-01-03
+			pass
+		else:
+			track_list.append(b)
 		print("len(track_list) = ", len(track_list))
 		#print("track_list = ", track_list[:])
 	#print("TP_coord_meta[0] final tally = ", TP_coord_meta[0])
