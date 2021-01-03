@@ -1,22 +1,22 @@
-input,/mnt/c/Users/hkqur/Desktop/work/techniques_paper/corona_delta/New folder/
-output,/mnt/c/Users/hkqur/Desktop/work/techniques_paper/corona_delta/
-max_nuc_diam,50
-min_bright,50
-prom,50
-peak_dist,50
+input,/mnt/g/110918xcoctail1xzoom_v1/
+output,/mnt/g/test_segmentation_out/11.09.182xcoctail1xzoom.czi 1- 11.09/
+max_nuc_diam,25
+min_bright,30
+prom,30
+peak_dist,25
 min2Darea,50
 max2Darea,5000
-cores,2
-conv_input,
-conv_output,
-min_vol_filt,
-x_conv,
-y_conv,
-z_conv,
-trk_input,/mnt/c/Users/hkqur/OneDrive/PHD/pygui/datasets/wtpii/appendcsv.csv
-trk_output,/mnt/c/Users/hkqur/OneDrive/PHD/pygui/datasets/
-frame_no,200
-scan_rad,9
+cores,7
+conv_input,/mnt/g/test_segmentation_out/11.09.182xcoctail1xzoom.czi 1- 11.09/
+conv_output,/mnt/g/test_segmentation_out/11.09.182xcoctail1xzoom.czi 1- 11.09/
+min_vol_filt,150
+x_conv,0.23
+y_conv,0.23
+z_conv,1
+trk_input,/mnt/g/test_segmentation_out/11.09.182xcoctail1xzoom.czi 1- 11.09/appendcsv.csv
+trk_output,/mnt/g/test_segmentation_out/11.09.182xcoctail1xzoom.czi 1- 11.09/
+frame_no,97
+scan_rad,15
 min_scanR,5
 decay_rate,2
-mit_buff,9
+mit_buff,5

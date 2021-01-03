@@ -6,7 +6,6 @@ import matplotlib
 import matplotlib.pyplot as plt ##!! dependency: ensure tkinter is installed, for matplotlib gui (apt-get install python3-tk)
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
-#from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TK
 import matplotlib.pylab as pylab
 import numpy
 from numpy import ndarray as npd
@@ -18,8 +17,7 @@ from sklearn import neighbors as skn
 import sys
 import os
 
-
-def value_check_trkparam(value):
+def value_check(value):
 	try:
 		value = float(value)
 		if value%1==0:
@@ -38,9 +36,9 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 	#track_input
 
 	data_len = int(frame_no) #length of dataset in frames/timepoints
-	scan_rad_lim = value_check_trkparam(min_scanR) #the lowest scan radius to decay to.
-	scan_rad_start = value_check_trkparam(scan_rad) #radius to scan within, to begin decay from
-	scan_rad_decay_factor = value_check_trkparam(decay_rate) #multiplied by the cell generation and subtracted from scan_rad_start
+	scan_rad_lim = value_check(min_scanR) #the lowest scan radius to decay to.
+	scan_rad_start = value_check(scan_rad) #radius to scan within, to begin decay from
+	scan_rad_decay_factor = value_check(decay_rate) #multiplied by the cell generation and subtracted from scan_rad_start
 	mitosis_buffer = int(mit_buff)
 	####END USER INPUTS
 
@@ -152,10 +150,14 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 
 	def SLICE(tracked):
 		track_slice = tracked[:3]
+		print("trackslice = ",track_slice)
+		'''
 		arroo = [0]
 		arroo[0] = track_slice
 		return arroo
-
+		'''
+		return track_slice
+		
 	def STICK(arroo, tracked_remain):
 		#print("arroo[0] = ", arroo[0])
 		if isinstance(arroo[0],list):
@@ -282,15 +284,20 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 				####
 				list_limit = 0 #only parse closest 3 neighbours
 				while list_limit<2: #only parse closest 3 neighbours
+					print("DETECTION::: IDnearpts = ",IDnearpts)
+					print("IDnearpts[0] = {} IDnearpts[1] = {}".format(IDnearpts[0],IDnearpts[1]))
 					for neighbour in IDnearpts: #only parse closest 3 neighbours
 						mitosis_trigger = 0 # 2020-12-11 set up a trigger to inform the if statement which continues tracking (the false positive block). If mitosis is confirmed, then this value changes to 1, which bypases the false statement block.
 						list_limit+=1
+						print("neighbour is ",neighbour)
 						IDnearptsN = ID_pts_within_dist(SLICE(neighbour), current_time_coords[:,:3], scan_radius/2)
+						print("length of IDnearptsN = ", len(IDnearptsN))
 						if len(IDnearptsN) == 1: #mitosis confirmation
 							IDnearptsN = [neighbour, IDnearptsN[0]]
 							tracked_prepend = tracked
 							tracked_prepend[5] = tracked_prepend[5]+1
 							daughterID = 1
+							print("IDnearptsN = ", IDnearptsN)
 							for R in IDnearptsN:
 								print("checking tracked value...", tracked)
 								print("R = ", R)
@@ -312,7 +319,7 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 							#### append family ID of previous coordinate to these new tracks.
 							#### add in sibling ID as a part of lineage ID
 							print("end of this track")
-							break
+							list_limit = 2 #close while loop. break wasn't working
 
 				if mitosis_trigger!=1: #false positive block
 					print("continue with track, trigger was noise.")
@@ -426,5 +433,5 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 
 	end = time.time()
 	print("execution time = ", end - start,"s")
-	#plt.show(block=False) #2020-11-18 added block=false to synergise with GUI multi window/multi threading functionality. We do not want the matplotlib window to stall the GUI.
 	plt.show()
+	#plt.show(block=False) #2020-11-18 added block=false to synergise with GUI multi window/multi threading functionality. We do not want the matplotlib window to stall the GUI.

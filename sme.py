@@ -654,7 +654,7 @@ def mod_run_chk(inP, outP, var_list, run_msg, all_systems):
 			#mod_run_chk(input,output,[max_nuc_diam, min_bright, prom, peak_dist, min2Darea, max2Darea],all_systems)
 
 while True:
-	event, values = window.read(20)
+	event, values = window.read()
 	#event == "Exit"
 	if event == pg.WIN_CLOSED:
 

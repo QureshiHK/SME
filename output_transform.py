@@ -52,6 +52,7 @@ def feature_transform(input,output,vol_thr,xconv,yconv,zconv,outpath):
 		listdir=os.listdir(cwd)
 		appendtofile = csv.writer(appended_output)
 		fileID=1 #important to set fileID so we know if first file or not. we must retain headers from first file while removing the headers from all appended tables.
+		#print("listdir=",listdir)
 		for i in listdir:
 			i_out = output+i
 			if "refX.csv" in i and "_t" in i: #using the refX.csv handle we set. the _t is just further locking the file choice to what we want though perhaps not strictly necessary
@@ -67,9 +68,11 @@ def feature_transform(input,output,vol_thr,xconv,yconv,zconv,outpath):
 						else:
 							row[2]=ArgX(row[2],inputarg2);row[3]=ArgX(row[3],inputarg3);row[4]=ArgX(row[4],inputarg4) #change column values first, store new row in memory to pass into writerow
 							appendtofile.writerow(row[0:]) #all other possibilities must be non header rows, we want these. add to table pls.
+							print("file is", i)
 						hrowID+=1
 			else:
+				print("file is:", i)
 				continue
 			fileID+=1 #iterate on file number.
-			outpath = out_file
-			return outpath
+		outpath = out_file
+		return outpath
