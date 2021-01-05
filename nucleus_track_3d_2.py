@@ -295,8 +295,8 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 					neighbour = SLICE(neighbour)
 					IDnearptsN = ID_pts_within_dist(neighbour, current_time_coords[:,:3], scan_radius)
 
-					print("length of IDnearptsN = ", len(IDnearptsN))
-					print("IDnearptsN---01 = ", IDnearptsN)
+					#print("length of IDnearptsN = ", len(IDnearptsN))
+					#print("IDnearptsN---01 = ", IDnearptsN)
 					
 					'''
 					truth_compare = neighbour == IDnearptsN[0]
@@ -311,9 +311,9 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 						tracked_prepend = tracked
 						tracked_prepend[5] = tracked_prepend[5]+1
 						daughterID = 1
-						print("IDnearptsN---02 = ", IDnearptsN)
+						#print("IDnearptsN---02 = ", IDnearptsN)
 						for R in IDnearptsN:
-							print("checking tracked value...", tracked)
+							#print("checking tracked value...", tracked)
 							print("R = ", R)
 							#R = R.tolist()
 							print("tolist R = ", R)
