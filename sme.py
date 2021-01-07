@@ -58,7 +58,8 @@ def value_check_trkparam(value):
 def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mit_buff):
 	####USER INPUTS:
 	#track_input
-
+	window.read(timeout=100)
+	start_trk=time.time()
 	data_len = int(frame_no) #length of dataset in frames/timepoints
 	scan_rad_lim = value_check_trkparam(min_scanR) #the lowest scan radius to decay to.
 	scan_rad_start = value_check_trkparam(scan_rad) #radius to scan within, to begin decay from
@@ -224,6 +225,7 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 	family_ID_clock = 0
 	for a_crd in TP_coord_meta[0]:          ####TP_coord_meta[0] is the list of coordinates in time point 0 but time point 0 can be seen as relative for time point 0 of the track. For new cells produced from mitosis at later time points, they are inserted into the list TP_coord_meta[0], so they can be lineage traced [FROM THEIR OWN STARTING TIME POINT, ENCODED IN 4D COORDINATE]
 		####Append 3char lineage ID (for family tracing) and a gen ID... TO add generational ID, append generation 0 to everything in base origin list (before any mitotic additions) before this for loop begins. then read for the generational coordinate deeper in the loop for when +1 needs to be added to the generation.
+		window.refresh()
 		tracked = a_crd #TP_coord_meta[0][point2track]
 		print("family_ID_clock = ", family_ID_clock)
 		if tracked[4] == 0:
@@ -298,6 +300,7 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 				pass
 
 			elif len(IDnearpts) > 1 and len(b) > mitosis_buffer:
+				window.refresh()
 				print(">1 points found")
 				#find nearest point a
 				#scan radius of a
@@ -473,10 +476,11 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 
 	#line_ani = animation.FuncAnimation(fig, update_lines, 10, interval=50, blit=False)
 
-	end = time.time()
-	print("execution time = ", end - start,"s")
+	end_trk = time.time()
+	print("execution time = ", end_trk - start_trk,"s")
 	window.refresh()
 	plt.show(block=False)
+
 
 	#plt.show(block=False) #2020-11-18 added block=false to synergise with GUI multi window/multi threading functionality. We do not want the matplotlib window to stall the GUI.
 
@@ -778,6 +782,7 @@ while True:
 		if all__systems=="GO":
 			print("running!!!!!")
 			try:
+				window.read(timeout=200)
 				gui_dir = os.getcwd()
 				input_dir=input
 				output_dir=output
@@ -1093,13 +1098,14 @@ while True:
 				pool = mpg.Pool(1)
 				pool.apply(track_nuc,(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mit_buff))
 				'''
-
+				'''
 				with closing(mpg.Pool(1)) as pl: #close processes and recover memory once each process is done
 					window.read(20)
 					pl.apply(track_nuc,(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mit_buff))
 					pl.close()
 					window.refresh()
-
+				'''
+				track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mit_buff)
 				#pool.join()
 				#^^^ pysimpleguiQt needs initiate parallel threads to run new scripts, as it must remain the primary thread.
 				#func_thread_trk.join()
