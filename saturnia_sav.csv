@@ -13,10 +13,10 @@ min_vol_filt,150
 x_conv,0.23
 y_conv,0.23
 z_conv,1
-trk_input,/mnt/c/Users/hkqur/OneDrive/PHD/pygui/quick_outs/appendcsv.csv
-trk_output,/mnt/c/Users/hkqur/OneDrive/PHD/pygui/quick_outs/
-frame_no,78
-scan_rad,15
-min_scanR,11
-decay_rate,2
-mit_buff,3
+trk_input,/home/danio/Documents/track_wflow/trackOUT/appendcsv.csv
+trk_output,/home/danio/Documents/track_wflow/trackOUT/
+frame_no,200
+scan_rad,21
+min_scanR,15
+decay_rate,3
+mit_buff,35

@@ -176,14 +176,14 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 	def SLICE(tracked):
 		track_slice = tracked[:3]
 		print("trackslice = ",track_slice)
-		
+
 		arroo = [0]
 		arroo[0] = track_slice
 		print("arroo = ", arroo)
 		return arroo
-		
+
 		#return track_slice
-		
+
 	def STICK(arroo, tracked_remain):
 		#print("arroo[0] = ", arroo[0])
 		if isinstance(arroo[0],list):
@@ -210,7 +210,7 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 		return f
 
 
-	
+
 	#### THE MITOSIS ENGINE:  TRACKING USING NEAREST NEIGHBOUR PROCESS ####
 	track_list = []
 	#### append generation 0 to every coordinate prior to this upcoming loop, and then +1 to generation value whenever coordinate falls into a mitotic lineage.
@@ -309,7 +309,7 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 				####
 				####ORGANISE NEIGHBOURS IN LIST BY PROXIMITY.#### THIS IS DONE AT THE FUNCTION LEVEL IN ID_pts_within_dist using return_dist AND sort_results arguments.
 				####
-				
+
 				print("DETECTION::: IDnearpts = ",IDnearpts)
 				print("IDnearpts[0] = {} IDnearpts[1] = {}".format(IDnearpts[0],IDnearpts[1]))
 				for neighbour in IDnearpts: #only parse closest 3 neighbours
@@ -321,7 +321,7 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 
 					#print("length of IDnearptsN = ", len(IDnearptsN))
 					#print("IDnearptsN---01 = ", IDnearptsN)
-					
+
 					'''
 					truth_compare = neighbour == IDnearptsN[0]
 					if truth_compare.all():
@@ -329,7 +329,7 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 					else:
 						print("IDnearptsN and neighbour NOT the same xxLT")
 					'''
-						
+
 					if len(IDnearptsN) == 2: #mitosis confirmation. value is set equivalent to 2 as id_near_pts in same time frame will detect own coordinate as position 0 in array.
 						IDnearptsN = [neighbour, IDnearptsN[1]]
 						tracked_prepend = tracked
@@ -404,7 +404,7 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 		for i in track_list:
 			print("csv write, 'i' = ", i)
 			trackwrite.writerow([i[0][4],i[0][5],len(i)])
-
+	window.refresh()
 	restack_master = []
 	for J in track_list:
 		#print("J = ", J)
@@ -456,6 +456,7 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 				print('#####list check: ', restack_list)
 				HL3+=1
 		restack_master.append(restack_list)
+		window.refresh()
 	#print("len track list: ", len(track_list))
 	#print("###RESTACK_MASTER =", restack_master, "#########")
 
@@ -466,14 +467,24 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 		trackwrite = csv.writer(f)
 		trackwrite.writerow(["X","Y","Z","T","GEN"])
 		for K in range(0,len(restack_master)):
+
 			print("RM[K][0] = ", restack_master[K][0])
+			print("restack_master_1")
+			window.refresh()
 			print("RM[K][1] = ", restack_master[K][1])
+			print("restack_master_2")
+			window.refresh()
 			print("xyz = ", restack_master[K][0],restack_master[K][1], restack_master[K][2])
+			print("restack_master_3")
+			window.refresh()
 			print("[RM[K][3][0] = ", restack_master[K][4][0])
+			print("restack_master_4")
+			window.refresh()
 			ax.plot(restack_master[K][0], restack_master[K][1], restack_master[K][2],c=cm.tab20c((int(restack_master[K][4][0]))))
 			#trackwrite.writerow(["X","Y","Z"])
 			trackwrite.writerow([restack_master[K][0], restack_master[K][1], restack_master[K][2], restack_master[K][3], restack_master[K][4]]) #contains coordinates,  time and generation for each track
-
+			print("restack_master_5")
+			window.refresh()
 	#line_ani = animation.FuncAnimation(fig, update_lines, 10, interval=50, blit=False)
 
 	end_trk = time.time()
@@ -529,7 +540,7 @@ except:
 	input, output, max_nuc_diam, min_bright, prom, peak_dist, min2Darea, max2Darea, cores = "","","","","","","","",""
 	conv_input, conv_output, min_vol_filt, x_conv, y_conv, z_conv = "","","","","",""
 	trk_input, trk_output, frame_no, scan_rad, min_scanR, decay_rate, mit_buff = "","","","","","",""
-	
+
 #####
 #TAB 1: SEGMENTATION
 selection_col = [[pg.Text("Input   "), pg.In(input, size=(25,2),enable_events=True, key = "-INPUT-"), pg.FolderBrowse()],
@@ -1092,7 +1103,7 @@ while True:
 
 				print("track_")
 				#func_thread_trk = threading.Thread(target=track_nuc,args=(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mit_buff),daemon=True)
-				
+
 				#func_thread_trk = threading_norm.start_new_thread(track_nuc,(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mit_buff))
 				'''
 				pool = mpg.Pool(1)
@@ -1151,7 +1162,7 @@ while True:
 		window["-MINVOLFILT-"].update(min_vol_filt)
 		window["-XCONV-"].update(x_conv)
 		window["-YCONV-"].update(y_conv)
-		window["-ZCONV-"].update(z_conv)		
+		window["-ZCONV-"].update(z_conv)
 		window["-TRK_INPUT-"].update(trk_input)
 		window["-TRK_OUTPUT-"].update(trk_output)
 		window["-DATALEN-"].update(frame_no)
