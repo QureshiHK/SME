@@ -434,19 +434,19 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 				zcoord = e[2]
 				tcoord = e[3]
 				gen_coord = e[5]
-				print(xcoord)
-				print(ycoord)
-				print(zcoord)
-				print(gen_coord)
+				#print(xcoord)
+				#print(ycoord)
+				#print(zcoord)
+				#print(gen_coord)
 				x_list.append(xcoord)
 				y_list.append(ycoord)
 				z_list.append(zcoord)
 				t_list.append(tcoord)
 				gen_list.append(gen_coord)
-				print('x_list = ', x_list)
-				print('y_list = ', y_list)
-				print('z_list = ', z_list)
-				print('gen_list = ', gen_list)
+				#('x_list = ', x_list)
+				#print('y_list = ', y_list)
+				#print('z_list = ', z_list)
+				#print('gen_list = ', gen_list)
 				restack_list = []
 				restack_list.append(x_list) #restack_master[K][0]
 				restack_list.append(y_list) #restack_master[K][1]

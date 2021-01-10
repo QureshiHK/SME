@@ -1,22 +1,22 @@
-input,/mnt/g/110918xcoctail1xzoom_v1/
-output,/mnt/g/test_segmentation_out/11.09.182xcoctail1xzoom.czi 1- 11.09/
+input,/mnt/g/220318_controlchk1_20ngul_v1/
+output,/mnt/g/test_segmentation_out/x220318chkv1/
 max_nuc_diam,25
 min_bright,30
-prom,30
+prom,25
 peak_dist,25
 min2Darea,50
 max2Darea,5000
-cores,7
+cores,9
 conv_input,/mnt/g/test_segmentation_out/11.09.182xcoctail1xzoom.czi 1- 11.09/
 conv_output,/mnt/g/test_segmentation_out/11.09.182xcoctail1xzoom.czi 1- 11.09/
 min_vol_filt,150
 x_conv,0.23
 y_conv,0.23
 z_conv,1
-trk_input,/home/danio/Documents/track_wflow/trackOUT/appendcsv.csv
-trk_output,/home/danio/Documents/track_wflow/trackOUT/
-frame_no,200
-scan_rad,21
-min_scanR,15
+trk_input,/mnt/c/Users/hkqur/OneDrive/PHD/pygui/quick_outs/nm/appendcsv.csv
+trk_output,/mnt/c/Users/hkqur/OneDrive/PHD/pygui/quick_outs/nm/
+frame_no,65
+scan_rad,20
+min_scanR,14
 decay_rate,3
-mit_buff,35
+mit_buff,9
