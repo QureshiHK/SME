@@ -6,15 +6,15 @@ from numpy.polynomial.polynomial import polyfit
 from PIL import Image, ImageDraw
 import matplotlib.pyplot as plt
 
-lowlimX=65
-highlimX=100
-lowlimY=65
-highlimY=115
-dataset="wtPii"
-gen_look_1 = int(1)
-gen_look_2 = int(2)
+lowlimX=65 #exclude nuclei with cell cycles which fall below this in X axis
+highlimX=100 #exclude nuclei with cell cycles which exceed this in X axis
+lowlimY=65 #exclude nuclei with cell cycles which fall below this in Y axis
+highlimY=115 #exclude nuclei with cell cycles which exceed this in Y axis
+dataset="wtPii" #sets dataset title for chart title
+gen_look_1 = int(1) #generation plotted in x axis. Gen 0 is not plotted as that is considered 'incomplete' first generation.
+gen_look_2 = int(2) #generation plotted in y axis
 #gen_look_3 = int(3)
-frameR=10
+frameR=10 #frame rate is time in seconds between frames. this determines the units to use on axes
 
 
 conversionFrameR=frameR/60

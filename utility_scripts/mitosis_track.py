@@ -7,8 +7,11 @@ import ast
 from matplotlib import cm
 import math
 
-tLENHIGH=115
-tLENLOW=35
+tLENHIGH=115 #upper limit of cell cycle lengths to plot (mitosis points from nuclei greater than this cell cycle length (in raw frames) are excluded. Decided by predetermined exclusion criteria)
+plotxAx=0
+tLENLOW=35 #lower limit of cell cycle lengths to plot (mitosis points from nuclei below this cell cycle length (in raw frames) are excluded. Decided by predetermined exclusion criteria)
+plotxAx=0 #Axes to plot in 2D. plotxAx is the X axis of the scatter plot plane. The number denotes which axis of the embryo to plot. x=0 y=1 z=2
+plotyAx=1
 
 mitosisData = pd.read_csv("tracks_.csv")
 
@@ -31,7 +34,7 @@ for a in range(0,len(mitosisSUB)):
 	print("{},{},{},{}".format(xVAL[-1],yVAL[-1],zVAL[-1],tVAL[-1],genLEN))
 	tLEN=tVAL[-1]-tVAL[1]+1
 	
-	plotcrd=(xVAL[-1],yVAL[-1],zVAL[-1],int(tVAL[-1]),genLEN,tLEN) #create tuple with all the coordinates we could need, x,y,z,T,gen
+	plotcrd=(xVAL[-1],yVAL[-1],zVAL[-1],int(tVAL[-1]),genLEN,tLEN) #create tuple with all the coordinates we could need, parameters of plotcrd tuple are: x,y,z,T,gen,cellcyclelength
 	mitTimeList.append(plotcrd)
 print(mitTimeList)
 
@@ -55,7 +58,7 @@ for b in mitTimeList:
 	if b[5] < tLENLOW or b[5] > tLENHIGH:
 		continue
 	print("b= ", b)
-	plt.scatter(b[0],b[1],c=cm.gist_gray(rangeNorm(b[3],rangemin,rangemax)),s=(b[5]*b[5])/10) #need to multiply the mitosis time value by 15 as the colour pallette doesn't register the small time differences. scaling up puts distance between time points and these register better on colour scale. make points nice and big to emphasise colours.
+	plt.scatter(b[plotxAx],b[plotyAx],c=cm.gist_gray(rangeNorm(b[3],rangemin,rangemax)),s=(b[5]*b[5])/10) #need to multiply the mitosis time value by 15 as the colour pallette doesn't register the small time differences. scaling up puts distance between time points and these register better on colour scale. make points nice and big to emphasise colours.
 	
 plt.title("Mitosis points in the transition from 256->512cell stage (XY plane, dataset: wtPii)")	
 #plt.legend()

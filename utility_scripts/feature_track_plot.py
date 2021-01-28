@@ -4,6 +4,10 @@ from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 import pandas as pd
 
+intervalTime=350
+framesNo=65
+
+
 dataframe=pd.read_csv("appendcsv.csv")
 XgroupbyTP=np.array(dataframe.groupby("T")["X"].apply(list))
 YgroupbyTP=np.array(dataframe.groupby("T")["Y"].apply(list))
@@ -23,6 +27,6 @@ def animate(frame,X,Y,Z):
 fig=plt.figure()
 ax=fig.add_subplot(projection="3d")
 
-ani = FuncAnimation(fig,animate,frames=1,fargs=(XgroupbyTP,YgroupbyTP,ZgroupbyTP),interval=350)
+ani = FuncAnimation(fig,animate,frames=int(framesNo),fargs=(XgroupbyTP,YgroupbyTP,ZgroupbyTP),interval=int(intervalTime))
 plt.show()
 plt.clf()
