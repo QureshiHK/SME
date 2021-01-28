@@ -156,7 +156,7 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 		for i in ind[0]:
 			#print("ID:: i = ", i)
 			near_pts.append(compare_lst[i])
-			#print("near_pts = ", near_pts)
+			print("near_pts = ", near_pts)
 		return near_pts
 
 	def nearest_K_pts_v2(compare_pt,compare_lst, K):
@@ -275,6 +275,7 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 			tracked_3D_coord = SLICE(tracked)
 			print("tracked 3d coord = ",tracked_3D_coord)
 			current_time_coords = np.array(current_time_coords)
+			#print("current_time_coords = ", current_time_coords)
 			#print("current_time_coords[:,:3] = ", current_time_coords[:,:3])
 
 			#numnearpts = num_pts_within_dist(tracked_3D_coord, current_time_coords[:,:3], scan_radius)
@@ -468,17 +469,17 @@ def track_nuc(trk_input,trk_output,frame_no, scan_rad, min_scanR, decay_rate, mi
 		trackwrite.writerow(["X","Y","Z","T","GEN"])
 		for K in range(0,len(restack_master)):
 
-			print("RM[K][0] = ", restack_master[K][0])
-			print("restack_master_1")
+			#print("RM[K][0] = ", restack_master[K][0])
+			#print("restack_master_1")
 			window.refresh()
-			print("RM[K][1] = ", restack_master[K][1])
-			print("restack_master_2")
+			#print("RM[K][1] = ", restack_master[K][1])
+			#print("restack_master_2")
 			window.refresh()
-			print("xyz = ", restack_master[K][0],restack_master[K][1], restack_master[K][2])
-			print("restack_master_3")
+			#print("xyz = ", restack_master[K][0],restack_master[K][1], restack_master[K][2])
+			#print("restack_master_3")
 			window.refresh()
-			print("[RM[K][3][0] = ", restack_master[K][4][0])
-			print("restack_master_4")
+			#print("[RM[K][3][0] = ", restack_master[K][4][0])
+			#print("restack_master_4")
 			window.refresh()
 			ax.plot(restack_master[K][0], restack_master[K][1], restack_master[K][2],c=cm.tab20c((int(restack_master[K][4][0]))))
 			#trackwrite.writerow(["X","Y","Z"])

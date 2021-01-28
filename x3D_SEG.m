@@ -3,7 +3,7 @@
 tic
 LayerDistance = 3; %distance of layers from each other, used in the volumetric model (at the end)
 
-seg_input = 'G:\test_segmentation_out\16cel210318_contrchk_v1\'; %3D segmentation input, use the parent folder containing all of the 2D segmentation time point folders
+seg_input = 'G:\x220318v1_newsegparam\'; %3D segmentation input, use the parent folder containing all of the 2D segmentation time point folders
 cd(seg_input);
 
 files = dir;
