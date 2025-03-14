@@ -1,5 +1,7 @@
 <h1>README</h1>
 
+Author: Haseeb Qureshi, current affiliation: University of Sheffield.
+
 
 <h3>System requirements & command line command list:</h3>
 
